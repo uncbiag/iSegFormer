@@ -38,7 +38,7 @@ First, download the [datasets and pretrained weights](https://github.com/qinliul
 python scripts/evaluate_model.py NoBRS \
 --gpu 0 \
 --checkpoint=./weights/imagenet21k_pretrain_cocolvis_finetune_swin_base_epoch_54.pth \
---dataset=OAIZIB
+--datasets=OAIZIB
 ```
 
 ## Training
