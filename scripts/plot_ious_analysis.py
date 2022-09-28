@@ -91,17 +91,6 @@ def main():
             if args.n_clicks != -1:
                 model_results = model_results[:args.n_clicks] * 100
 
-                # cheating
-                if dataset_name == 'GrabCut' and model_name == 'Ours HRNet32 (C+L)':
-                    model_results[0] += 0.3
-                    model_results[1] += 0.5
-                    model_results[2] += 1.4
-
-                if dataset_name == 'BraTS' and model_name == 'Ours HRNet32 (C+L)':
-                    model_results[0] += 3
-                    model_results[1] += 3
-
-
             n_clicks = len(model_results)
             max_clicks = max(max_clicks, n_clicks)
 
