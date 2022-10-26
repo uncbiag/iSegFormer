@@ -33,7 +33,7 @@ $ ./run_demo.sh
 ```
 
 ## Evaluation
-First, download the [datasets and pretrained weights](https://github.com/qinliuliuqin/iSegFormer/releases) and run the following code for evaluation:
+First, download the [datasets and pretrained weights](https://drive.google.com/drive/folders/1KG6QVwlydyEzmcKNHgvCZjKhsaycIFiV?usp=sharing) and run the following code for evaluation:
 ```
 python scripts/evaluate_model.py NoBRS \
 --gpu 0 \
