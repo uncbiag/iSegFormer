@@ -49,8 +49,8 @@ python train.py models/iter_mask/swinformer_large_oaizib_itermask.py \
 --gpu=0
 ```
 
-## Model Weights
-We released two models: Swin-B and HRNet32 that can be downloaded in the [release page](https://github.com/qinliuliuqin/iSegFormer/releases).
+## Download: models and datasets
+[Google Drive](https://drive.google.com/drive/folders/1KG6QVwlydyEzmcKNHgvCZjKhsaycIFiV?usp=sharing)
 
 <!-- ## Datasets
 [OAI-ZIB-test](https://github.com/qinliuliuqin/iSegFormer/releases/download/v0.1/OAI-ZIB-test.zip) \
@@ -67,7 +67,7 @@ The following two demos are out of date.
 The code is released under the MIT License. It is a short, permissive software license. Basically, you can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source. 
 
 ## Citation
-```
+```bibtex
 @article{liu2021isegformer,
   title={iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images},
   author={Liu, Qin and Xu, Zhenlin, and Jiao, Yining and Niethammer, Marc},
