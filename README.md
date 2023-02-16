@@ -1,7 +1,7 @@
 # iSegFormer: A Codebase for Interactive Video/Volume Segmentation using Vision Transformers
 
 ## Introduction
-This codebase is for interactive image/video/volume segmentation using cutting-edge vision transformers. It is still under active development. 
+This codebase is for interactive video/volume segmentation using cutting-edge vision transformers. It is still under active development. 
 To reproduce results of our published papers, please refer to the following branches.
 
 ## Branches
