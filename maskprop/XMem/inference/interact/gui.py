@@ -61,7 +61,7 @@ class App(QWidget):
         self.height, self.width = self.res_man.h, self.res_man.w
 
         # set window
-        self.setWindowTitle('XMem Demo')
+        self.setWindowTitle('iSegFormer Demo')
         self.setGeometry(100, 100, self.width, self.height+100)
         self.setWindowIcon(QIcon('docs/icon.png'))
 

@@ -42,6 +42,7 @@ if __name__ == '__main__':
     """
     parser.add_argument('--images', help='Folders containing input images.', default=None)
     parser.add_argument('--video', help='Video file readable by OpenCV.', default=None)
+    parser.add_argument('--volume', help='Volume file readable by SimpleITK', default=None)
     parser.add_argument('--workspace', help='directory for storing buffered images (if needed) and output masks', default=None)
 
     parser.add_argument('--buffer_size', help='Correlate with CPU memory consumption', type=int, default=100)

@@ -5,3 +5,5 @@ git+https://github.com/cheind/py-thin-plate-spline
 hickle
 tensorboard
 numpy
+scipy=1.10.0
+cython

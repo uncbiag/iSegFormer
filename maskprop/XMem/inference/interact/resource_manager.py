@@ -8,6 +8,7 @@ from PIL import Image
 if not hasattr(Image, 'Resampling'):  # Pillow<9.0
     Image.Resampling = Image
 import numpy as np
+import SimpleITK as sitk
 
 from util.palette import davis_palette
 import progressbar
@@ -41,6 +42,8 @@ class ResourceManager:
         # determine inputs
         images = config['images']
         video = config['video']
+        volume = config['volume']
+
         self.workspace = config['workspace']
         self.size = config['size']
         self.palette = davis_palette
@@ -50,10 +53,12 @@ class ResourceManager:
             if images is not None:
                 basename = path.basename(images)
             elif video is not None:
-                basename = path.basename(video)[:-4]
+                basename = path.basename(video)[:-4] # 'basename.mp4'
+            elif volume is not None:
+                basename = path.basename(volume)[:-7] # 'basename.nii.gz'
             else:
                 raise NotImplementedError(
-                    'Either images, video, or workspace has to be specified')
+                    'Either images, video, volume, or workspace has to be specified')
 
             self.workspace = path.join('./workspace', basename)
 
@@ -69,6 +74,9 @@ class ResourceManager:
         elif video is not None:
             # will decode video into frames later
             need_decoding = True
+        elif volume is not None:
+            # will decode volume into frames later
+            need_decoding = True
 
         # create workspace subdirectories
         self.image_dir = path.join(self.workspace, 'images')
@@ -82,8 +90,11 @@ class ResourceManager:
 
         # extract frames from video
         if need_decoding:
-            self._extract_frames(video)
-
+            if video:
+                self._extract_frames_from_video(video)
+            elif volume:
+                self._extract_frames_from_volume(volume)
+                
         # copy/resize existing images to the workspace
         if need_resizing:
             self._copy_resize_frames(images)
@@ -100,7 +111,7 @@ class ResourceManager:
         self.height, self.width = self.get_image(0).shape[:2]
         self.visualization_init = False
 
-    def _extract_frames(self, video):
+    def _extract_frames_from_video(self, video):
         cap = cv2.VideoCapture(video)
         frame_index = 0
         print(f'Extracting frames from {video} into {self.image_dir}...')
@@ -115,6 +126,37 @@ class ResourceManager:
                 new_h = (h*self.size//min(w, h))
                 if new_w != w or new_h != h:
                     frame = cv2.resize(frame,dsize=(new_w,new_h),interpolation=cv2.INTER_AREA)
+            cv2.imwrite(path.join(self.image_dir, f'{frame_index:07d}.jpg'), frame)
+            frame_index += 1
+            bar.update(frame_index)
+        bar.finish()
+        print('Done!')
+
+    def _extract_frames_from_volume(self, volume):
+        frames = sitk.GetArrayFromImage(sitk.ReadImage(volume))
+        print(f'Extracting frames from {volume} into {self.image_dir}...')
+        bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength)
+
+        min_val = np.percentile(frames, 1)
+        max_val = np.percentile(frames, 99)
+        assert max_val > min_val
+
+        frames[frames < min_val] = min_val
+        frames[frames > max_val] = max_val
+        clip=(0, 255)
+        frames = clip[0] + (clip[1] - clip[0]) * (frames - min_val) / (max_val - min_val)
+        frames = np.stack([frames, frames, frames], axis=3).astype(np.uint8)
+
+        frame_index = 0
+        for i in range(frames.shape[0]):
+            frame = frames[i]
+            if self.size > 0:
+                h, w = frame.shape[:2]
+                new_w = (w*self.size//min(w, h))
+                new_h = (h*self.size//min(w, h))
+                if new_w != w or new_h != h:
+                    frame = cv2.resize(frame,dsize=(new_w,new_h),interpolation=cv2.INTER_AREA)
+
             cv2.imwrite(path.join(self.image_dir, f'{frame_index:07d}.jpg'), frame)
             frame_index += 1
             bar.update(frame_index)
