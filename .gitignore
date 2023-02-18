@@ -4,6 +4,7 @@ weights/
 # Data
 *videos
 *volumes
+workspace/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

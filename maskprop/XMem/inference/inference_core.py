@@ -1,8 +1,7 @@
-from inference.memory_manager import MemoryManager
-from model.network import XMem
-from model.aggregate import aggregate
-
-from util.tensor_util import pad_divide_by, unpad
+from maskprop.XMem.inference.memory_manager import MemoryManager
+from maskprop.XMem.model.network import XMem
+from maskprop.XMem.model.aggregate import aggregate
+from maskprop.XMem.util.tensor_util import pad_divide_by, unpad
 
 
 class InferenceCore:

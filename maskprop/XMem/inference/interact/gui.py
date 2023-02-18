@@ -29,9 +29,9 @@ from PyQt5.QtWidgets import (QWidget, QApplication, QComboBox, QCheckBox,
 from PyQt5.QtGui import QPixmap, QKeySequence, QImage, QTextCursor, QIcon
 from PyQt5.QtCore import Qt, QTimer
 
-from model.network import XMem
+from maskprop.XMem.model.network import XMem
 
-from inference.inference_core import InferenceCore
+from maskprop.XMem.inference.inference_core import InferenceCore
 from .s2m_controller import S2MController
 from .fbrs_controller import FBRSController
 
@@ -63,7 +63,7 @@ class App(QWidget):
         # set window
         self.setWindowTitle('iSegFormer Demo')
         self.setGeometry(100, 100, self.width, self.height+100)
-        self.setWindowIcon(QIcon('docs/icon.png'))
+        self.setWindowIcon(QIcon('logo.png'))
 
         # some buttons
         self.play_button = QPushButton('Play Video')

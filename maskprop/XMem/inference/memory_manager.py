@@ -1,8 +1,8 @@
 import torch
 import warnings
 
-from inference.kv_memory_store import KeyValueMemoryStore
-from model.memory_util import *
+from maskprop.XMem.inference.kv_memory_store import KeyValueMemoryStore
+from maskprop.XMem.model.memory_util import *
 
 
 class MemoryManager:

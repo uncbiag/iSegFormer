@@ -4,8 +4,10 @@ import numpy as np
 
 import torch
 import torch.nn.functional as F
-from util.palette import davis_palette
-from dataset.range_transform import im_normalization
+
+from maskprop.XMem.util.palette import davis_palette
+from maskprop.XMem.dataset.range_transform import im_normalization
+
 
 def image_to_torch(frame: np.ndarray, device='cuda'):
     # frame: H*W*3 numpy array

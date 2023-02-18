@@ -9,9 +9,9 @@ if not hasattr(Image, 'Resampling'):  # Pillow<9.0
     Image.Resampling = Image
 import numpy as np
 import SimpleITK as sitk
-
-from util.palette import davis_palette
 import progressbar
+
+from maskprop.XMem.util.palette import davis_palette
  
 
 # https://bugs.python.org/issue28178
