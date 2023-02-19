@@ -5,8 +5,9 @@ import numpy as np
 import json
 import cv2
 from copy import deepcopy
-from isegm.data.base import ISDataset
-from isegm.data.sample import DSample
+
+from ....isegm.data.base import ISDataset
+from ....isegm.data.sample import DSample
 
 
 class CocoLvisDataset(ISDataset):

@@ -2,9 +2,9 @@ import torch
 import numpy as np
 from tkinter import messagebox
 
-from isegm.inference import clicker
-from isegm.inference.predictors import get_predictor
-from isegm.utils.vis import draw_with_blend_and_clicks
+from ..isegm.inference import clicker
+from ..isegm.inference.predictors import get_predictor
+from ..isegm.utils.vis import draw_with_blend_and_clicks
 
 
 class InteractiveController:

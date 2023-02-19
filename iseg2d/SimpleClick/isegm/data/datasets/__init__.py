@@ -1,4 +1,4 @@
-from isegm.data.compose import ComposeDataset, ProportionalComposeDataset
+from ....isegm.data.compose import ComposeDataset, ProportionalComposeDataset
 from .berkeley import BerkeleyDataset
 from .coco import CocoDataset
 from .davis import DavisDataset

@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 from pathlib import Path
 
-from isegm.data.base import ISDataset
-from isegm.data.sample import DSample
+from ....isegm.data.base import ISDataset
+from ....isegm.data.sample import DSample
 
 
 class ImagesDirDataset(ISDataset):

@@ -4,8 +4,8 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from isegm.data.base import ISDataset
-from isegm.data.sample import DSample
+from ....isegm.data.base import ISDataset
+from ....isegm.data.sample import DSample
 
 
 class PascalVocDataset(ISDataset):

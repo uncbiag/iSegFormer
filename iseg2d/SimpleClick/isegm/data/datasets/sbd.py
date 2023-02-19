@@ -5,9 +5,9 @@ import cv2
 import numpy as np
 from scipy.io import loadmat
 
-from isegm.utils.misc import get_bbox_from_mask, get_labels_with_sizes
-from isegm.data.base import ISDataset
-from isegm.data.sample import DSample
+from ....isegm.utils.misc import get_bbox_from_mask, get_labels_with_sizes
+from ....isegm.data.base import ISDataset
+from ....isegm.data.sample import DSample
 
 
 class SBDDataset(ISDataset):

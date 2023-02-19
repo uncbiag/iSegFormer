@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from isegm.utils import misc
+from ...isegm.utils import misc
 
 
 class NormalizedFocalLossSigmoid(nn.Module):

@@ -1,7 +1,7 @@
 import numpy as np
 from copy import deepcopy
-from isegm.utils.misc import get_labels_with_sizes
-from isegm.data.transforms import remove_image_only_transforms
+from ...isegm.utils.misc import get_labels_with_sizes
+from ...isegm.data.transforms import remove_image_only_transforms
 from albumentations import ReplayCompose
 
 
