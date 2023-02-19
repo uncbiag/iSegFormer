@@ -17,7 +17,6 @@ from maskprop.XMem.model.network import XMem
 from maskprop.XMem.inference.interact.s2m_controller import S2MController
 from maskprop.XMem.inference.interact.fbrs_controller import FBRSController
 from maskprop.XMem.inference.interact.s2m.s2m_network import deeplabv3plus_resnet50 as S2M
-
 from maskprop.XMem.inference.interact.gui import App
 from maskprop.XMem.inference.interact.resource_manager import ResourceManager
 
@@ -31,6 +30,9 @@ if __name__ == '__main__':
     parser.add_argument('--model', default='./maskprop/XMem/saves/XMem.pth')
     parser.add_argument('--s2m_model', default='./maskprop/XMem/saves/s2m.pth')
     parser.add_argument('--fbrs_model', default='./maskprop/XMem/saves/fbrs.pth')
+
+    # click-to-mask module. Under development
+    parser.add_argument('--c2m_model', default='./maskprop/XMem/saves/c2m.pth')
 
     """
     Priority 1: If a "images" folder exists in the workspace, we will read from that directory
