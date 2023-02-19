@@ -11,7 +11,7 @@ import numpy as np
 import SimpleITK as sitk
 import progressbar
 
-from maskprop.XMem.util.palette import davis_palette
+from ...util.palette import davis_palette
  
 
 # https://bugs.python.org/issue28178

@@ -29,9 +29,8 @@ from PyQt5.QtWidgets import (QWidget, QApplication, QComboBox, QCheckBox,
 from PyQt5.QtGui import QPixmap, QKeySequence, QImage, QTextCursor, QIcon
 from PyQt5.QtCore import Qt, QTimer
 
-from maskprop.XMem.model.network import XMem
-
-from maskprop.XMem.inference.inference_core import InferenceCore
+from ...model.network import XMem
+from ..inference_core import InferenceCore
 from .s2m_controller import S2MController
 from .fbrs_controller import FBRSController
 
@@ -230,7 +229,7 @@ class App(QWidget):
         navi.addStretch(1)
         navi.addWidget(QLabel('Overlay Mode'))
         navi.addWidget(self.combo)
-        navi.addWidget(QLabel('Save overlay during propagation'))
+        navi.addWidget(QLabel('Save Overlay'))
         navi.addWidget(self.save_visualization_checkbox)
         navi.addStretch(1)
         navi.addWidget(self.commit_button)
@@ -456,7 +455,7 @@ class App(QWidget):
             self.update_interact_vis()
             self.update_minimap()
 
-        self.lcd.setText('{: 3d} / {: 3d}'.format(self.cursur, self.num_frames-1))
+        self.lcd.setText('{: 4d} / {: 4d}'.format(self.cursur, self.num_frames-1))
         self.tl_slider.setValue(self.cursur)
 
     def pixel_pos_to_image_pos(self, x, y):
