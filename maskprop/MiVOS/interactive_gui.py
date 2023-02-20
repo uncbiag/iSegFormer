@@ -65,7 +65,7 @@ class App(QWidget):
             self.iou_curve = []
 
         # set window
-        self.setWindowTitle('MiVOS')
+        self.setWindowTitle('iSegFormer')
         self.setGeometry(100, 100, self.width, self.height+100)
 
         # some buttons
@@ -582,7 +582,7 @@ class App(QWidget):
         if self.timer.isActive():
             self.timer.stop()
         else:
-            self.timer.start(1000 / 25)
+            self.timer.start(1000 // 25)
 
     def on_undo(self):
         if self.in_local_mode:

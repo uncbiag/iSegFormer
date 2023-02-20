@@ -13,6 +13,7 @@ from model.aggregate import aggregate_wbg
 
 from util.tensor_util import pad_divide_by
 
+
 class InferenceCore:
     """
     images - leave them in original dimension (unpadded), but do normalize them. 
@@ -150,6 +151,7 @@ class InferenceCore:
         last_ti = idx
 
         # Note that we never reach closest_ti, just the frame before it
+        # This is because the frame of closet_ti is always interacted.
         if forward:
             this_range = range(idx+1, closest_ti)
             end = closest_ti - 1
@@ -232,6 +234,10 @@ class InferenceCore:
         else:
             self.certain_mem_k = torch.cat([self.certain_mem_k, key_k], 2)
             self.certain_mem_v = torch.cat([self.certain_mem_v, key_v], 2)
+
+        # example shape
+        # key_k: [1, 64, 1, 30, 30]; key_v: [K, 512, 1, 30, 30]; certain_mem_v: [K, 512, N, 30, 30]
+        # N depends on the number of interacted frames; K is the number of objects.
 
         if total_cb is not None:
             # Finds the total num. frames to process
