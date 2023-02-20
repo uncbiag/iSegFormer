@@ -151,6 +151,9 @@ class PropagationNetwork(nn.Module):
         self.decoder = Decoder()
 
     def encode_value(self, frame, kf16, masks): 
+        # example shape
+        # frame: [1, 3, 480, 480]; kf16: [1, 1024, 30, 30]; masks: [4, 1, 480, 480]
+        # Here the masks excludes the background
         k, _, h, w = masks.shape
 
         # Extract memory key/value for a frame with multiple masks
@@ -166,8 +169,12 @@ class PropagationNetwork(nn.Module):
         else:
             others = torch.zeros_like(masks)
 
+        # example shape
+        # frames: [4, 3, 480, 480]; kf16: [4, 1024, 480, 480]; 
+        # masks: [4, 1, 480, 480]; others: [4, 1, 480, 480]
+        # f16: [4, 512, 30, 30]
         f16 = self.value_encoder(frame, kf16, masks, others)
-        return f16.unsqueeze(2) # B*512*T*H*W
+        return f16.unsqueeze(2)
 
     def encode_key(self, frame): 
         f16, f8, f4 = self.key_encoder(frame)
@@ -177,6 +184,11 @@ class PropagationNetwork(nn.Module):
         return k16, f16_thin, f16, f8, f4
 
     def segment_with_query(self, mk16, mv16, qf8, qf4, qk16, qv16): 
+        # example shape
+        # affinity: [1, 900*N, 900]
+        # mk16: [1, 64, N, 30, 30]; mv16: [K, 512, N, 30, 30]; 
+        # qk16: [1, 64, 30, 30]; qv16: [1, 512, 30, 30]
+        # N depends on the # of memory frames; K depends on the # of objects
         affinity = self.memory.get_affinity(mk16, qk16)
 
         k = mv16.shape[0]
@@ -186,9 +198,15 @@ class PropagationNetwork(nn.Module):
             self.memory.readout(affinity, mv16[i:i+1]) for i in range(0, k, batched)
         ], 0)
 
+        # example shape
+        # m4: [K, 512, 30, 30]
+
         qv16 = qv16.expand(k, -1, -1, -1)
         m4 = torch.cat([m4, qv16], 1)
 
+        # example shape
+        # m4: [K, 1024, 30, 30]
+        # output: [K, 1, 480, 480]
         return torch.sigmoid(self.decoder(m4, qf8, qf4))
 
     def get_W(self, mk16, qk16):

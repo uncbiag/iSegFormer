@@ -62,6 +62,10 @@ class InferenceCore:
             self.k_buf_size = 1
             self.i_buf_size = 1
 
+        # example shape
+        # images: [1, 304, 3, 480, 480]
+        # the images have 304 frames
+
         # True dimensions
         t = images.shape[1]
         h, w = images.shape[-2:]
@@ -216,6 +220,10 @@ class InferenceCore:
         Return: all mask results in np format for DAVIS evaluation
         """
         self.interacted.add(idx)
+
+        # example shape
+        # mask: [4+1, 1, 480, 480], 4 foreground objects and 1 background object
+        # mask is one-hot/binarized, though it's a float-valued map.
         mask = mask.to(self.device)
         mask, _ = pad_divide_by(mask, 16, mask.shape[-2:])
 

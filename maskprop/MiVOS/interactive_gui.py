@@ -550,7 +550,7 @@ class App(QWidget):
         self.current_mask = self.processor.interact(self.interacted_mask, self.cursur, 
                             self.progress_total_cb, self.progress_step_cb)
         self.interacted_mask = None
-        # clear scribble and reset
+        # clear scribble/clicks and reset
         self.show_current_frame()
         self.reset_this_interaction()
         self.progress.setFormat('Idle')
