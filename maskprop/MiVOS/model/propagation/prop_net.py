@@ -153,7 +153,7 @@ class PropagationNetwork(nn.Module):
     def encode_value(self, frame, kf16, masks): 
         # example shape
         # frame: [1, 3, 480, 480]; kf16: [1, 1024, 30, 30]; masks: [4, 1, 480, 480]
-        # Here the masks excludes the background
+        # Here the masks excludes the background (4 is the # of foreground objects)
         k, _, h, w = masks.shape
 
         # Extract memory key/value for a frame with multiple masks
