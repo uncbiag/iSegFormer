@@ -14,7 +14,7 @@ size_480 = (480, 480)
 
 def extract_images():
     volume_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset/Image'
-    volume_frames_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/JPEGImages/480'
+    volume_frames_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/JPEGImages/480p'
     os.makedirs(volume_frames_folder, exist_ok=True)
 
     volumes = os.listdir(volume_folder)
@@ -44,7 +44,7 @@ def extract_images():
 
 def extract_masks():
     mask_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset/Mask'
-    mask_frames_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/Annotations/480'
+    mask_frames_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/Annotations/480p'
     os.makedirs(mask_frames_folder, exist_ok=True)
 
     masks = os.listdir(mask_folder)

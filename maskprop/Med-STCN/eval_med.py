@@ -22,7 +22,7 @@ Arguments loading
 """
 parser = ArgumentParser()
 parser.add_argument('--model', default='saves/stcn.pth')
-parser.add_argument('--med_path', default='/work/data/Internal/Abdomen1KDataset_frames')
+parser.add_argument('--med_path', default='/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames')
 parser.add_argument('--output')
 parser.add_argument('--split', help='val', default='val')
 parser.add_argument('--top', type=int, default=20)
@@ -36,7 +36,7 @@ out_path = args.output
 
 # Simple setup
 os.makedirs(out_path, exist_ok=True)
-palette = Image.open(path.expanduser(med_path + '/trainval/Annotations/480p/Organ12_0001/0000000.png')).getpalette()
+palette = Image.open(path.expanduser(f'{med_path}/trainval/Annotations/480p/Organ12_0001/0000000.png')).getpalette()
 
 torch.autograd.set_grad_enabled(False)
 

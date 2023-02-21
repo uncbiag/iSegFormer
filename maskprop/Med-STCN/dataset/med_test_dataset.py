@@ -48,10 +48,10 @@ class MedTestDataset(Dataset):
                     continue
                 self.videos.append(_video)
                 self.num_frames[_video] = len(os.listdir(path.join(self.image_dir, _video)))
-                _mask = np.array(Image.open(path.join(self.mask_dir, _video[:-5], '0000000.png')).convert("P"))
+                _mask = np.array(Image.open(path.join(self.mask_dir, _video, '0000000.png')).convert("P"))
                 self.num_objects[_video] = len(self.valid_obj_labels)
                 self.shape[_video] = np.shape(_mask)
-                _mask480 = np.array(Image.open(path.join(self.mask480_dir, _video[:-5], '0000000.png')).convert("P"))
+                _mask480 = np.array(Image.open(path.join(self.mask480_dir, _video, '0000000.png')).convert("P"))
                 self.size_480p[_video] = np.shape(_mask480)
 
         self.single_object = single_object
@@ -89,12 +89,11 @@ class MedTestDataset(Dataset):
             images.append(self.im_transform(Image.open(img_file).convert('RGB')))
             info['frames'].append('{:07d}.jpg'.format(f))
             
-            mask_file = path.join(self.mask_dir, video[:-5], '{:07d}.png'.format(f))
+            mask_file = path.join(self.mask_dir, video, '{:07d}.png'.format(f))
             if path.exists(mask_file):
                 masks.append(np.array(Image.open(mask_file).convert('P'), dtype=np.uint8))
             else:
-                # Test-set maybe?
-                masks.append(np.zeros_like(masks[0]))
+                raise ValueError(f'Mask does not exist: {mask_file}')
         
         images = torch.stack(images, 0)
         masks = np.stack(masks, 0)
