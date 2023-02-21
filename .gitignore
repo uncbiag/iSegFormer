@@ -1,6 +1,7 @@
 # Models
 weights/
-*/saves
+*saves
+*results
 *.pth
 
 # Data
