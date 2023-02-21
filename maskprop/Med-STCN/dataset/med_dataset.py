@@ -28,11 +28,7 @@ class MedDataset(Dataset):
                 continue
             self.names.append(vid)
             vol_im_path = path.join(self.im_root, vid)
-
-            vid_gt = vid
-            if vid.startswith('Organ12'):
-                vid_gt = vid[:12] + vid[17:]
-            vol_gt_path = path.join(self.gt_root, vid_gt)
+            vol_gt_path = path.join(self.gt_root, vid)
 
             self.volumes.append(self._load_volume(vol_im_path))
             self.masks.append(self._load_mask(vol_gt_path))
