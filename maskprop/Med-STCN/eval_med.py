@@ -64,10 +64,13 @@ prop_model.load_state_dict(prop_saved)
 total_process_time = 0
 total_frames = 0
 
-# Start eval
+# start evaluation. Only 1 round propagation.
 for data in progressbar(test_loader, max_value=len(test_loader), redirect_stdout=True):
 
     with torch.cuda.amp.autocast(enabled=args.amp):
+        # example shape
+        # rgb: [1, T, 3, 480, 480]; msk: [N, T, 1, 480, 480]
+        # T is the number of frames; N is the number of organs        
         rgb = data['rgb'].cuda()
         msk = data['gt'][0].cuda()
         info = data['info']
@@ -76,12 +79,15 @@ for data in progressbar(test_loader, max_value=len(test_loader), redirect_stdout
         size = info['size_480p']
         num_frames = info['num_frames'].numpy()[0]
 
+        start_frame = num_frames // 2
+        # find the best starting frame
+        
         torch.cuda.synchronize()
         process_begin = time.time()
 
         processor = InferenceCore(prop_model, rgb, k, top_k=top_k, 
                         mem_every=args.mem_every, include_last=args.include_last)
-        processor.interact(msk[:,num_frames // 2], num_frames // 2, rgb.shape[1], is_med=True)
+        processor.interact(msk[:,start_frame], start_frame)
 
         # Do unpad -> upsample to original size 
         out_masks = torch.zeros((processor.t, 1, *size), dtype=torch.uint8, device='cuda')
@@ -89,7 +95,7 @@ for data in progressbar(test_loader, max_value=len(test_loader), redirect_stdout
             prob = unpad(processor.prob[:,ti], processor.pad)
             prob = F.interpolate(prob, size, mode='bilinear', align_corners=False)
             out_masks[ti] = torch.argmax(prob, dim=0)
-        
+
         out_masks = (out_masks.detach().cpu().numpy()[:,0]).astype(np.uint8)
 
         # cautious: no overlap between the two label sets

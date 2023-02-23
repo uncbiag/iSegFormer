@@ -63,8 +63,7 @@ class InferenceCore:
 
             # it makes no sense to save the last frame as the memory frame
             if ti != end:
-                # is_mem_frame = ((ti % self.mem_every) == 0)
-                is_mem_frame = False
+                is_mem_frame = ((ti % self.mem_every) == 0)
                 if self.include_last or is_mem_frame:
                     prev_value = self.prop_net.encode_value(self.images[:,ti].cuda(), qf16, out_mask[1:])
                     prev_key = k16.unsqueeze(2)
@@ -72,7 +71,7 @@ class InferenceCore:
 
         return closest_ti
 
-    def interact(self, mask, frame_idx, end_idx, is_med=False):
+    def interact(self, mask, frame_idx):
         mask, _ = pad_divide_by(mask.cuda(), 16)
 
         self.prob[:, frame_idx] = aggregate(mask, keep_bg=True)
@@ -82,8 +81,6 @@ class InferenceCore:
         key_v = self.prop_net.encode_value(self.images[:,frame_idx].cuda(), qf16, self.prob[1:,frame_idx].cuda())
         key_k = key_k.unsqueeze(2)
 
-        # Propagate
-        self.do_pass(key_k, key_v, frame_idx, end_idx)
-
-        if is_med:
-            self.do_pass(key_k, key_v, frame_idx, 0)
+        # bi-directional propagation
+        self.do_pass(key_k, key_v, frame_idx, self.t)
+        self.do_pass(key_k, key_v, frame_idx, -1)
