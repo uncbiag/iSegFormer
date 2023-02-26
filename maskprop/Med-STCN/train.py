@@ -88,25 +88,16 @@ def construct_loader(dataset):
                             worker_init_fn=worker_init_fn, drop_last=True, pin_memory=True)
     return train_sampler, train_loader
 
-def renew_med_loader(max_skip):
-    # med_root1 = '/work/data/Internal/MedDataset'
-    # med_dataset1 = MedDataset(
-    #     path.join(med_root1, 'Image'),
-    #     path.join(med_root1, 'Mask'),
-    #     max_skip
-    # )
-
-    med_root2 = '/work/data/Internal/Abdomen1KDataset_volume/'
-    med_dataset2 = MedDataset(
-        path.join(med_root2, 'Image_val'),
-        path.join(med_root2, 'Mask_val'),
+def renew_abd1k_loader(max_skip):
+    abd1k_root = path.expanduser(para['abd1k_root'])
+    abd1k_dataset = MedDataset(
+        path.join(abd1k_root, 'Image'),
+        path.join(abd1k_root, 'Mask'),
         max_skip
     )
 
-    train_dataset = med_dataset2
-    # train_dataset = ConcatDataset([med_dataset1] + [med_dataset2])
-    # print('Med dataset1 size: ', len(med_dataset1))
-    # print('Med dataset2 size: ', len(med_dataset2))
+    train_dataset = ConcatDataset([abd1k_dataset])
+    print('Abd1k dataset size: ', len(abd1k_dataset))
     print('Concat dataset size: ', len(train_dataset))
     print('Renewed with skip: ', max_skip)
 
@@ -185,8 +176,8 @@ elif para['stage'] == 4:
     # stage 4: fine-tuning on medical images
     skip_values = [2, 2, 2, 1, 1]
     increase_skip_fraction = [0.1, 0.2, 0.3, 0.4, 0.9, 1.0]
-    train_sampler, train_loader = renew_med_loader(1)
-    renew_loader = renew_med_loader
+    train_sampler, train_loader = renew_abd1k_loader(1)
+    renew_loader = renew_abd1k_loader
 elif para['stage'] == 5:
     # stage 5: fine-tuning from the sota s012 model
     increase_skip_fraction = [0.1, 0.2, 0.3, 0.4, 0.9, 1.0]
