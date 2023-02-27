@@ -89,10 +89,10 @@ class LossComputer:
                 else:
                     loss, p = self.bce(data['logits_0_cycle'][j:j+1,:2], data['cls_gt'][j:j+1,0], it)
 
-                losses['loss_0'] += loss / b
+                losses['loss_0_cycle'] += loss / b
 
-            weight = self.para['cp_weight']
-            losses['total_loss'] += weight * losses['loss_0']
+            cycle_loss_weight = self.para['cycle_loss_weight']
+            losses['total_loss'] += cycle_loss_weight * losses['loss_0_cycle']
 
             # cycle_total_i, cycle_total_u = compute_tensor_iu(data['mask_0_cycle']>0.5, data['gt'][:,0]>0.5)
             # print('debug: cycle_total ', cycle_total_i, cycle_total_u)
@@ -100,5 +100,15 @@ class LossComputer:
             #     cycle_total_i, cycle_total_u = compute_tensor_iu(data['sec_mask_0_cycle']>0.5, data['sec_gt'][:,0]>0.5)
             #     print('debug: cycle_total_sec ', cycle_total_i, cycle_total_u)
 
+        if 'logits_1_fused' in data.keys():
+            for j in range(b):
+                if selector is not None and selector[j][1] > 0.5:
+                    loss, p = self.bce(data['logits_1_fused'][j:j+1], data['cls_gt'][j:j+1,1], it)
+                else:
+                    loss, p = self.bce(data['logits_1_fused'][j:j+1], data['cls_gt'][j:j+1,1], it)
+
+                losses['loss_1_fused'] += loss / b
+            fusion_loss_weight = self.para['fusion_loss_weight']
+            losses['total_loss'] += fusion_loss_weight * losses['loss_1_fused']
 
         return losses

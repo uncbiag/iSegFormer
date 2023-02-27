@@ -12,6 +12,7 @@ import torch.optim as optim
 
 from model.network import STCN
 from model.losses import LossComputer, iou_hooks_mo, iou_hooks_so
+from model.aggregate import aggregate_wbg_channel
 from util.log_integrator import Integrator
 from util.image_saver import pool_pairs
 
@@ -92,19 +93,19 @@ class STCNModel:
                 seg_frame1_from_frame0_logits, seg_frame1_from_frame0_mask = self.STCN('segment', 
                     k16[:,:,1], kf16_thin[:,1], kf8[:,1], kf4[:,1], k16[:,:,0:1], ref_frame0_v, selector)
 
-                # Segment frame 2 with frame 0 and 1
-                # The first step is to get values from frame 0 and frame 1
+                # Segment frame 2 with frame 0 and 1; v - value
+                # The first step is to get values from frame 0 and frame 1 combined
                 seg_frame1_from_frame0_v1 = self.STCN('encode_value', Fs[:,1], kf16[:,1], \
                     seg_frame1_from_frame0_mask[:,0:1], seg_frame1_from_frame0_mask[:,1:2])                
                 seg_frame1_from_frame0_v2 = self.STCN('encode_value', Fs[:,1], kf16[:,1], \
                     seg_frame1_from_frame0_mask[:,1:2], seg_frame1_from_frame0_mask[:,0:1])
                 seg_frame1_from_frame0_v = torch.stack([seg_frame1_from_frame0_v1, seg_frame1_from_frame0_v2], 1)
-                values_ref_frame0_and_seg_frame1 = torch.cat([ref_frame0_v, seg_frame1_from_frame0_v], 3)
+                values_of_ref_frame0_and_seg_frame1 = torch.cat([ref_frame0_v, seg_frame1_from_frame0_v], 3)
                 del ref_frame0_v
 
-                seg_frame2_from_frames12_logits, seg_frame2_from_frames12_mask = self.STCN('segment', 
+                seg_frame2_from_frames12_logits, seg_frame2_from_frames01_mask = self.STCN('segment', 
                         k16[:,:,2], kf16_thin[:,2], kf8[:,2], kf4[:,2], 
-                        k16[:,:,0:2], values_ref_frame0_and_seg_frame1, selector)
+                        k16[:,:,0:2], values_of_ref_frame0_and_seg_frame1, selector)
 
                 if self.para['use_cycle_loss']:
                     # Segment frame 0 with segmented frame 1 (cycle-propagation)
@@ -117,24 +118,37 @@ class STCNModel:
                     out['logits_0_cycle'] = seg_frame1_logits_cycle
 
                 if self.para['use_fusion_loss']:
-                    # Segment frame 1 with frame 2.
-                    # This is regarded as the second round.
+                    # Encode values for frame 2
                     ref_frame2_v1 = self.STCN('encode_value', Fs[:,2], kf16[:,2], Ms[:,2], sec_Ms[:,2])
                     ref_frame2_v2 = self.STCN('encode_value', Fs[:,2], kf16[:,2], sec_Ms[:,2], Ms[:,2])
                     ref_frame2_v = torch.stack([ref_frame2_v1, ref_frame2_v2], 1)
 
-                    # Segment frame 1 with frame 2
+                    # Round 2: segment frame 1 with frame 2 as the memory
                     seg_frame1_from_frame2_logits, seg_frame1_from_frame2_mask = self.STCN('segment',
                         k16[:,:,1], kf16_thin[:,1], kf8[:,1], kf4[:,1], k16[:,:,2:], ref_frame2_v, selector)
 
                     # Fuse the two segmentations of frame 1
-                    # fuse_loss = self.fusion(seg_frame1_from_frame0_logits, seg_frame1_from_frame2_logits, diff)
+                    # def fuse(self, query_img, query_key, query_seg_r1, query_seg_r2, ref_key, ref_gt, ref_seg, distance): 
+                    distance = data['dist']
+                    seg_frame1_fused_1 = self.STCN('fuse', Fs[:,1], k16[:,:,1], seg_frame1_from_frame0_mask[:,0:1], \
+                        seg_frame1_from_frame2_mask[:,0:1], k16[:,:,2], Ms[:,2], seg_frame2_from_frames01_mask[:,0:1], distance)
+                    seg_frame1_fused_2 = self.STCN('fuse', Fs[:,1], k16[:,:,1], seg_frame1_from_frame0_mask[:,1:2], \
+                        seg_frame1_from_frame2_mask[:,1:2], k16[:,:,2], sec_Ms[:,2], seg_frame2_from_frames01_mask[:,1:2], distance)
+                    
+                    seg_frame1_fused = torch.cat([seg_frame1_fused_1, seg_frame1_fused_2], dim=1) * \
+                        (selector.unsqueeze(2).unsqueeze(2))
+                    
+                    # be very careful about this function !!!
+                    seg_frame1_fused_logits, seg_frame1_fused_mask = aggregate_wbg_channel(seg_frame1_fused)
 
-
+                    out['mask_1_fused'] = seg_frame1_fused_mask[:,0:1]
+                    out['sec_mask_1_fused'] = seg_frame1_fused_mask[:,1:2]
+                    out['logits_1_fused'] = seg_frame1_fused_logits
+ 
                 out['mask_1'] = seg_frame1_from_frame0_mask[:,0:1]
-                out['mask_2'] = seg_frame2_from_frames12_mask[:,0:1]
+                out['mask_2'] = seg_frame2_from_frames01_mask[:,0:1]
                 out['sec_mask_1'] = seg_frame1_from_frame0_mask[:,1:2]
-                out['sec_mask_2'] = seg_frame2_from_frames12_mask[:,1:2]
+                out['sec_mask_2'] = seg_frame2_from_frames01_mask[:,1:2]
 
                 out['logits_1'] = seg_frame1_from_frame0_logits
                 out['logits_2'] = seg_frame2_from_frames12_logits
@@ -239,7 +253,7 @@ class STCNModel:
                     nn.init.orthogonal_(pads)
                     src_dict[k] = torch.cat([src_dict[k], pads], 1)
 
-        self.STCN.module.load_state_dict(src_dict)
+        self.STCN.module.load_state_dict(src_dict, strict=False)
         print('Network weight loaded:', path)
 
     def train(self):
