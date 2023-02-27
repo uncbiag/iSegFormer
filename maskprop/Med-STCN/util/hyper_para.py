@@ -44,9 +44,11 @@ class HyperParameters():
 
         # parameters for new contributions
         parser.add_argument('--use_cycle_loss', help='Whether to use cycle propagation loss', action='store_true')
+        parser.add_argument('--use_fusion_loss', help='Whether to use fusion loss', action='store_true')
         parser.add_argument('--use_const_skip_values', help='Use constant skip values', action='store_true')
         parser.add_argument('--save_model_interval', type=int, default=10000)
-        parser.add_argument('--cp_weight', type=float, default=0.1)
+        parser.add_argument('--cycle_loss_weight', type=float, default=0.1)
+        parser.add_argument('--fusion_loss_weight', type=float, default=0.1)
 
         if unknown_arg_ok:
             args, _ = parser.parse_known_args()
@@ -90,8 +92,8 @@ class HyperParameters():
             # finetuning on medical images
             self.args['lr'] = none_or_default(self.args['lr'], 1e-6)
             self.args['batch_size'] = none_or_default(self.args['batch_size'], 4)
-            self.args['iterations'] = none_or_default(self.args['iterations'], 1000)
-            self.args['steps'] = none_or_default(self.args['steps'], [500])
+            self.args['iterations'] = none_or_default(self.args['iterations'], 50000)
+            self.args['steps'] = none_or_default(self.args['steps'], [10000])
             self.args['single_object'] = False
         elif self.args['stage'] == 5:
             # finetuning from the sota s012 model

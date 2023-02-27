@@ -104,11 +104,12 @@ class MedDataset(Dataset):
         info['name'] = name
 
         trials = 0
+        dist = None
         while trials < 5:
             info['frames'] = [] # store the frame index
 
             this_max_jump = min(num_frames - 1, self.max_jump)
-            start_idx = np.random.randint(num_frames - this_max_jump + 1)
+            start_idx = np.random.randint(num_frames - 1 - this_max_jump)
             f1_idx = start_idx + np.random.randint(this_max_jump + 1) + 1
             f1_idx = min(f1_idx, num_frames - 1)
 
@@ -163,6 +164,12 @@ class MedDataset(Dataset):
                 if has_second_object:
                     labels = labels[labels != target_object]
                     second_object = np.random.choice(labels)
+
+                # Compute distance from reference frame to target frame
+                first_ref, tar_frame_int, secon_ref = frames_idx
+                dist_1 = abs(int(first_ref)-tar_frame_int) / abs(int(first_ref)-int(secon_ref))
+                dist_2 = abs(int(secon_ref)-tar_frame_int) / abs(int(first_ref)-int(secon_ref))
+                dist = torch.FloatTensor([dist_1, dist_2])
                 break
 
         masks = np.stack(masks, 0)
@@ -184,7 +191,8 @@ class MedDataset(Dataset):
             'cls_gt': cls_gt,
             'sec_gt': sec_masks,
             'selector': selector,
-            'info': info
+            'info': info,
+            'dist': dist
         }
 
         return data
