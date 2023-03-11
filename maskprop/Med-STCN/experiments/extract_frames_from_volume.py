@@ -12,13 +12,14 @@ davis_palette = b'\x00\x00\x00\x80\x00\x00\x00\x80\x00\x80\x80\x00\x00\x00\x80\x
 
 size_480 = (480, 480)
 
-def extract_images():
-    volume_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset/Image'
-    volume_frames_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/JPEGImages/480p'
+def extract_images(volume_folder, volume_frames_folder):
     os.makedirs(volume_frames_folder, exist_ok=True)
 
     volumes = os.listdir(volume_folder)
     for volume in volumes:
+        if volume.startswith('.'):
+            continue
+
         print('volume: ', volume)
         volume_basename = volume[:-7]
         os.makedirs(os.path.join(volume_frames_folder, volume_basename), exist_ok=True)
@@ -42,15 +43,18 @@ def extract_images():
 
             frame_index += 1
 
-def extract_masks():
-    mask_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset/Mask'
-    mask_frames_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/Annotations/480p'
+def extract_masks(mask_folder, mask_frames_folder):
     os.makedirs(mask_frames_folder, exist_ok=True)
 
     masks = os.listdir(mask_folder)
     for mask in masks:
+        if mask.startswith('.'):
+            continue
+
         print('mask: ', mask)
-        mask_basename = mask[:12]
+        # mask_basename = mask[:12]
+        mask_basename = mask[:-7]
+
         os.makedirs(os.path.join(mask_frames_folder, mask_basename), exist_ok=True)
 
         frames = sitk.GetArrayFromImage(sitk.ReadImage(os.path.join(mask_folder, mask)))
@@ -66,7 +70,34 @@ def extract_masks():
             # cv2.imwrite(os.path.join(mask_frames_folder, mask_basename, f'{frame_index:07d}.png'), frame)
             frame_index += 1
 
+
 if __name__ == '__main__':
 
-    extract_images()
-    extract_masks()
+    DATASET = ''
+
+    if DATASET == 'ABD1K':
+        # AbdomenCT-1K
+        volume_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset/Image'
+        volume_frames_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/JPEGImages/480p'
+
+        mask_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset/Mask'
+        mask_frames_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/Annotations/480p'
+
+    elif DATASET == 'MSD':
+        # MSD
+        volume_folder = '/playpen-raid2/qinliu/data/MSD/Task02_Heart/imagesTr'
+        volume_frames_folder = '/playpen-raid2/qinliu/data/MSD/Task02_Heart_frames/trainval/JPEGImages/480p'
+
+        mask_folder = '/playpen-raid2/qinliu/data/MSD/Task02_Heart/labelsTr'
+        mask_frames_folder = '/playpen-raid2/qinliu/data/MSD/Task02_Heart_frames/trainval/Annotations/480p'
+
+    else:
+        # KiTS19
+        volume_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset/Image'
+        volume_frames_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/JPEGImages/480p'
+
+        mask_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset/Mask'
+        mask_frames_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/Annotations/480p'
+
+    extract_images(volume_folder, volume_frames_folder)
+    extract_masks(mask_folder, mask_frames_folder)

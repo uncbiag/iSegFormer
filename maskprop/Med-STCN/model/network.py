@@ -157,5 +157,3 @@ class STCN(nn.Module):
             return self.segment(*args, **kwargs)
         else:
             raise NotImplementedError
-
-
