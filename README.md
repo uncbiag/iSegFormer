@@ -5,6 +5,8 @@ This codebase is for interactive video/volume segmentation using cutting-edge vi
 To reproduce results of our published papers, please refer to the following branches.
 
 ## Branches
+> \[[cycle-learning](https://github.com/uncbiag/iSegFormer/tree/cycle-learning)\] Exploring Cycle Consistency Learning in Interactive Volume Segmentation 
+
 > \[[v1.0_miccai22](https://github.com/uncbiag/iSegFormer/tree/v1.0_miccai22)\] iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images (MICCAI'22)
 
 ## License
