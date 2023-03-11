@@ -1,5 +1,8 @@
 # iSegFormer: Interactive Video/Volume Segmentation using Vision Transformers
 
+## Updates
+[03/11/2023] Add code for cycle consistency learning.
+
 ## Introduction
 This codebase is for interactive video/volume segmentation using cutting-edge vision transformers. It is still under active development. 
 To reproduce results of our published papers, please refer to the following branches.
@@ -8,9 +11,6 @@ To reproduce results of our published papers, please refer to the following bran
 > \[[cycle-learning](https://github.com/uncbiag/iSegFormer/tree/cycle-learning)\] Exploring Cycle Consistency Learning in Interactive Volume Segmentation 
 
 > \[[v1.0_miccai22](https://github.com/uncbiag/iSegFormer/tree/v1.0_miccai22)\] iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images (MICCAI'22)
-
-## Updates
-[03/11/2023] Add code for cycle consistency learning.
 
 ## License
 The code is released under the MIT License. It is a short, permissive software license. Basically, you can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source. 
