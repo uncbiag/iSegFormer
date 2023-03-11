@@ -40,7 +40,24 @@ class MemoryReader(nn.Module):
     def __init__(self):
         super().__init__()
  
+    def get_affinity_v2(self, mk, qk):
+        # for 4-d inputs
+        B, CK, H, W = mk.shape
+
+        mk = mk.flatten(start_dim=2)
+        qk = qk.flatten(start_dim=2)
+
+        a = mk.pow(2).sum(1).unsqueeze(2)
+        b = 2 * (mk.transpose(1, 2) @ qk)
+        c = qk.pow(2).sum(1).unsqueeze(1)
+
+        affinity = (-a+b-c) / math.sqrt(CK)   # B, THW, HW
+
+        affinity = F.softmax(affinity, dim=1)
+        return affinity
+
     def get_affinity(self, mk, qk):
+        # for 5-d inputs
         B, CK, T, H, W = mk.shape
         mk = mk.flatten(start_dim=2)
         qk = qk.flatten(start_dim=2)
@@ -71,6 +88,51 @@ class MemoryReader(nn.Module):
         return mem_out
 
 
+class FusionNet(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(9, 32, kernel_size=3, padding=1, stride=1),
+            nn.ReLU(),
+        )
+
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(32, 32, kernel_size=3, padding=1, stride=1),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, kernel_size=3, padding=1, stride=1),
+        )
+
+        self.conv3 = nn.Sequential(
+            nn.Conv2d(32, 32, kernel_size=3, padding=1, stride=1),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, kernel_size=3, padding=1, stride=1),
+        )
+
+        self.relu = nn.ReLU()
+        self.final_conv = nn.Conv2d(32, 1, kernel_size=3, padding=1, stride=1)
+
+    def forward(self, im, seg1, seg2, attn, time):
+        h, w = im.shape[-2:]
+
+        time = time.unsqueeze(2).unsqueeze(2)
+        time = time.expand(-1, -1, h, w)
+
+        x = torch.cat([im, seg1, seg2, attn, time], 1)
+
+        x = self.conv1(x)
+
+        r = self.conv2(x)
+        x = self.relu(x + r)
+
+        r = self.conv3(x)
+        x = self.relu(x + r)
+
+        x = self.final_conv(x)
+
+        return x
+
+
 class STCN(nn.Module):
     def __init__(self, single_object):
         super().__init__()
@@ -90,6 +152,9 @@ class STCN(nn.Module):
 
         self.memory = MemoryReader()
         self.decoder = Decoder()
+
+        # fusion module
+        self.fusion_net = FusionNet()
 
     def aggregate(self, prob):
         new_prob = torch.cat([
@@ -148,6 +213,28 @@ class STCN(nn.Module):
 
         return logits, prob
 
+    def fuse(self, query_img, query_key, query_seg_r1, query_seg_r2, ref_key, ref_gt, ref_seg, distance):
+        # get difference masks for the reference image
+        pos_mask = (ref_gt - ref_seg).clamp(0, 1)
+        neg_mask = (ref_seg - ref_gt).clamp(0, 1)
+
+        b, _, h, w = pos_mask.shape
+        nh = h//16
+        nw = w//16
+
+        # example shape
+        # ref_key: [4, 3, 384, 384]; query_key: [4, 64, 24, 24]
+        W = self.memory.get_affinity_v2(ref_key, query_key)
+
+        pos_map = (F.interpolate(pos_mask, size=(nh,nw), mode='area').view(b, 1, nh*nw) @ W)
+        neg_map = (F.interpolate(neg_mask, size=(nh,nw), mode='area').view(b, 1, nh*nw) @ W)
+        attn_map = torch.cat([pos_map, neg_map], 1)
+        attn_map = attn_map.reshape(b, 2, nh, nw)
+
+        attn_map = F.interpolate(attn_map, mode='bilinear', size=(h,w), align_corners=False)
+        prob = torch.sigmoid(self.fusion_net(query_img, query_seg_r1, query_seg_r2, attn_map, distance))
+        return prob
+
     def forward(self, mode, *args, **kwargs):
         if mode == 'encode_key':
             return self.encode_key(*args, **kwargs)
@@ -155,5 +242,7 @@ class STCN(nn.Module):
             return self.encode_value(*args, **kwargs)
         elif mode == 'segment':
             return self.segment(*args, **kwargs)
+        elif mode == 'fuse':
+            return self.fuse(*args, **kwargs)
         else:
             raise NotImplementedError
