@@ -1,4 +1,6 @@
+export CUDA_VISIBLE_DEVICES=0
 
-volume_1=/playpen-raid2/qinliu/projects/iSegFormer/maskprop/XMem/workspace/lung_001/images/
-volume_2=/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/JPEGImages/480p/Organ12_0001
-python3 interactive_gui.py --images ${volume_2} --num_objects=4
+python3 interactive_gui.py \
+--images /playpen-raid2/qinliu/projects/iSegFormer/maskprop/XMem/workspace/lung_001/images/ \
+--num_objects=1 \
+--prop_model=/playpen-raid2/qinliu/projects/iSegFormer/maskprop/Med-STCN/saves/Aug01_22.03.33_retrain_s4_ft_from_med_10000.pth 

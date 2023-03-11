@@ -65,7 +65,7 @@ class App(QWidget):
             self.iou_curve = []
 
         # set window
-        self.setWindowTitle('iSegFormer')
+        self.setWindowTitle('Demo')
         self.setGeometry(100, 100, self.width, self.height+100)
 
         # some buttons

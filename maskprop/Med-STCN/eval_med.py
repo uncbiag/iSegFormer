@@ -36,7 +36,7 @@ out_path = args.output
 
 # Simple setup
 os.makedirs(out_path, exist_ok=True)
-palette = Image.open(path.expanduser(f'{med_path}/trainval/Annotations/480p/Organ12_0001/0000000.png')).getpalette()
+palette = Image.open(path.expanduser(f'/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/Annotations/480p/Organ12_0001/0000000.png')).getpalette()
 
 torch.autograd.set_grad_enabled(False)
 

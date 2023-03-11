@@ -53,7 +53,7 @@ def load_volume(path, normalize=True, min_side=None):
         image_npy_rgb = image_npy_rgb.astype(np.int32)
         min_val = np.percentile(image_npy_rgb, 0.1)
         max_val = max(1, np.percentile(image_npy_rgb, 99.9))
-        print('Intensity range: [{}, {}]'.format(min_val, max_val))
+        # print('Intensity range: [{}, {}]'.format(min_val, max_val))
 
         image_npy_rgb[image_npy_rgb < min_val] = min_val
         image_npy_rgb[image_npy_rgb > max_val] = max_val
@@ -61,7 +61,8 @@ def load_volume(path, normalize=True, min_side=None):
         image_npy_rgb = 255 * (image_npy_rgb - min_val) / max_val
         image_npy_rgb = image_npy_rgb.astype(np.uint8)
     else:
-        print('Intensity range: [{}, {}]'.format(image_npy.min(), image_npy.max()))
+        image_npy_rgb = image_npy_rgb.astype(np.uint8)
+        # print('Intensity range: [{}, {}]'.format(image_npy.min(), image_npy.max()))
 
 
 

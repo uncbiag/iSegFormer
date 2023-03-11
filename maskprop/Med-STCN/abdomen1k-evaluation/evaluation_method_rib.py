@@ -12,8 +12,8 @@ label2 = 22
 gt_folder = '/work/data/Internal/Abdomen1KDataset_frames/trainval/Annotations_rib/480p'
 # seg_folder = '/work/results/stcn_rib_abdomen1k'
 seg_folder = '/work/results/stcn_rib_abdomen1k_Jul20_19.26.32_ft_s012_400k_no_cc'
-# seg_folder = '/work/results/stcn_rib_abdomen1k_Aug01_15.34.08_ft_s012_10k_no_cc'
-# seg_folder = '/work/results/stcn_rib_abdomen1k_Aug01_22.03.33_ft_s012_10k_cc'
+seg_folder = '/work/results/stcn_rib_abdomen1k_Aug01_15.34.08_ft_s012_10k_no_cc'
+seg_folder = '/work/results/stcn_rib_abdomen1k_Aug01_22.03.33_ft_s012_10k_cc'
 dataset_file = '/work/data/Internal/Abdomen1KDataset_frames/trainval/ImageSets/val.txt'
 
 videos = []

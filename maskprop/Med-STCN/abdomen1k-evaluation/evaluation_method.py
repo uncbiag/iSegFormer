@@ -89,20 +89,23 @@ def evaluate(gt_folder, seg_folder, dataset_file, label):
 
 if __name__ == '__main__':
 
-    data_root_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval'
+    # data_root_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval'
+    data_root_folder = '/playpen-raid2/qinliu/data/MSD/Task02_Heart_frames/trainval'
+
     gt_folder = f'{data_root_folder}/Annotations/480p'
     dataset_file = f'{data_root_folder}/ImageSets/val.txt'
 
-    seg_root_folder = '/playpen-raid2/qinliu/projects/iSegFormer/maskprop/Med-STCN/results'
-    for label in range(1, 13):
+    # seg_root_folder = '/playpen-raid2/qinliu/projects/iSegFormer/maskprop/Med-STCN/results'
+    seg_root_folder = '/playpen-raid2/qinliu/projects/iSegFormer/maskprop/Med-STCN/results/MSD'
+    for label in range(1, 2):
         seg_folder = f'{seg_root_folder}/stcn/label_{label}'
         evaluate(gt_folder, seg_folder, dataset_file, label)
 
-    for label in range(1, 13):
+    for label in range(1, 2):
         seg_folder = f'{seg_root_folder}/stcn_med_abdomen1k_Aug01_15.34.08_ft_s012_10k_no_cc/label_{label}'
         evaluate(gt_folder, seg_folder, dataset_file, label)
 
-    for label in range(1, 13):
+    for label in range(1, 2):
         seg_folder = f'{seg_root_folder}/stcn_med_abdomen1k_Aug01_22.03.33_ft_s012_10k_cc/label_{label}'
         evaluate(gt_folder, seg_folder, dataset_file, label)
 
