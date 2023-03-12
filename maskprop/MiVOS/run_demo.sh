@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES=3
+export CUDA_VISIBLE_DEVICES=0
 
 python3 interactive_gui.py \
 --images /playpen-raid2/qinliu/projects/iSegFormer/maskprop/XMem/workspace/lung_001/images/ \

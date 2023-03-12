@@ -1,5 +1,6 @@
-# iSegFormer: Interactive Video/Volume Segmentation using Vision Transformers
+# Exploring Cycle Consistency Learning in Interactive Volume Segmentation
 
+<<<<<<< HEAD
 ## Updates
 [03/11/2023] Add code for cycle consistency learning in branch [cycle-learning](https://github.com/uncbiag/iSegFormer/tree/cycle-learning).
 
@@ -26,3 +27,6 @@ The code is released under the MIT License. It is a short, permissive software l
   organization={Springer}
 }
 ```
+=======
+# Appear soon.
+>>>>>>> cycle-learning
