@@ -1,3 +1,12 @@
+# Modules
+*Med-STCN
+*workspace
+*iseg2d
+*maskprop
+
+# Results
+*results/
+
 # Models
 weights/
 
