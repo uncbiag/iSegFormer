@@ -1,3 +1,5 @@
-# Exploring Cycle Consistency Learning in Interactive Volume Segmentation
+# [Exploring Cycle Consistency Learning in Interactive Volume Segmentation](https://arxiv.org/abs/2303.06493)
 
-# Appear soon.
+<p align="center">
+  <img src="./assets/framework.pdf" alt="drawing", width="650"/>
+</p>
