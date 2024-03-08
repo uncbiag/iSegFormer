@@ -1,4 +1,11 @@
-## [iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images](https://arxiv.org/abs/2112.11325)
+# [iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images](https://arxiv.org/abs/2112.11325)
+**University of North Carolina at Chapel Hill**
+
+[Qin Liu](https://sites.google.com/cs.unc.edu/qinliu/home), [Zhenlin Xu](https://wildphoton.github.io/), [Yining Jiao](https://jiaoyining.github.io/), [Marc Niethammer](https://biag.cs.unc.edu/)
+
+MICCAI 2022
+
+
 <p align="center">
     <a href="https://arxiv.org/abs/2112.11325">
         <img src="https://img.shields.io/badge/arXiv-2102.06583-b31b1b"/>
@@ -68,10 +75,12 @@ The code is released under the MIT License. It is a short, permissive software l
 
 ## Citation
 ```bibtex
-@article{liu2021isegformer,
-  title={iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images},
-  author={Liu, Qin and Xu, Zhenlin, and Jiao, Yining and Niethammer, Marc},
-  journal={arXiv preprint arXiv:2112.11325},
-  year={2021}
+@inproceedings{liu2022isegformer,
+  title={iSegFormer: interactive segmentation via transformers with application to 3D knee MR images},
+  author={Liu, Qin and Xu, Zhenlin and Jiao, Yining and Niethammer, Marc},
+  booktitle={International Conference on Medical Image Computing and Computer-Assisted Intervention},
+  pages={464--474},
+  year={2022},
+  organization={Springer}
 }
 ```
