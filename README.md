@@ -37,8 +37,23 @@ Then run a demo:
 ```
 ./run_demo.sh
 ```
-You will get a GUI as below below: 
+You will get a GUI as below: 
 <p align="center">
   <img src="./assets/ivos_gui.png" alt="drawing", width="700"/>
 </p>
 
+## Training
+TBD
+
+## Evaluation
+TBD
+
+## Citation
+```bibtex
+@article{liu2023exploring,
+  title={Exploring Cycle Consistency Learning in Interactive Volume Segmentation},
+  author={Liu, Qin and Zheng, Meng and Planche, Benjamin and Gao, Zhongpai and Chen, Terrence and Niethammer, Marc and Wu, Ziyan},
+  journal={arXiv preprint arXiv:2303.06493},
+  year={2023}
+}
+```
