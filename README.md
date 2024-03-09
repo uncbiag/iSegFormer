@@ -1,20 +1,32 @@
 # Exploring Cycle Consistency Learning in Interactive Volume Segmentation
+PyTorch implementation for paper [Exploring Cycle Consistency Learning in Interactive Volume Segmentation](https://arxiv.org/abs/2303.06493).
 
-<p align="center">
-    <a href="https://arxiv.org/abs/2303.06493">
-        <img src="https://img.shields.io/badge/arXiv-2102.06583-b31b1b"/>
-    </a>
-    <a href="https://opensource.org/licenses/MIT">
-        <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="The MIT License"/>
-    </a>
-</p>
+Qin Liu<sup>1</sup>,
+Meng Zheng<sup>2</sup>,
+Benjamin Planche<sup>2</sup>,
+Zhongpai Gao<sup>2</sup>,
+Terrence Chen<sup>2</sup>,
+Marc Niethammer<sup>1</sup>, 
+Ziyan Wu<sup>2</sup>
+<br>
+<sup>1</sup>UNC-Chapel Hill, <sup>2</sup>United Imaging Intelligence</sup>
 
+#### [Paper](https://arxiv.org/abs/2303.06493) | [Video](https://drive.google.com/drive/folders/1bPLn7ZsZB3xRKNhxOB0ewWX3rlxp2pK_?usp=sharing)
 
 <p align="center">
   <img src="./assets/framework.png" alt="drawing", width="650"/>
 </p>
 
 ## Installation
-The code requires ``python>=3.8``, ``pytorch>=1.12``, and ``torchvision>=0.13``. Installing both PyTorch and TorchVision with CUDA support is highly recommended.
+The code is tested with ``python=3.9``, ``torch=1.12.0``, and ``torchvision=0.13.0`` on an A6000 GPU.
+```
+git clone https://github.com/uncbiag/iSegFormer
+cd iSegFormer
+git checkout v2.0
+conda create -n isegformer python=3.9
+conda activate isegformer
+pip3 install -r requirements.txt
+```
 
 ## Getting Started
+First download a [model checkpoint](https://drive.google.com/drive/folders/1V2NNIIPEE6NjkYx5wiCdgCGzP_ctgnUF?usp=sharing).
