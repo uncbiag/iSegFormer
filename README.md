@@ -41,7 +41,7 @@ pip3 install -r requirements.txt
 ```
 
 ## Getting Started
-First, download AbdomenCT-1K and model weights. AbdomenCT-1K will be saved in the ``data`` folder; model weight will be saved in the ``saves`` folder. AbdomenCT-1K can also be downloaded from the official [webset](https://github.com/JunMa11/AbdomenCT-1K). 
+First, download AbdomenCT-1K dataset and model weights. AbdomenCT-1K will be saved in the ``data`` folder; model weight will be saved in the ``saves`` folder.
 ```
 python download.py
 ```
@@ -57,26 +57,22 @@ You will get a GUI as below:
 ## Training
 To finetune an STCN model on AbdomenCT-1K with cycle consistency loss:
 ```
-./maskprop/Med-STCN/run_train_s4_cc.sh
+./run_train_stcn_with_cycle.sh
 ```
 To finetune an STCN model on AbdomenCT-1K without cycle consistency loss:
 ```
-./maskprop/Med-STCN/run_train_s4.sh
+./run_train_stch_without_cycle.sh
 ```
 
 ## Evaluation
 To evaluate a trained model on AbdomenCT-1K:
 ```
-./maskprop/Med-STCN/eval_med_stcn.sh
-```
-To obtain the segmentation metrics:
-```
-python maskprop/Med-STCN/abdomen1K-evaluation/evaluation_method.py
+./eval_stcn.sh
 ```
 
 ## Acknowledgement
 
-We sincerely thank [STM](https://github.com/seoungwugoh/STM), [STCN](https://github.com/hkchengrex/STCN), [MiVOS](https://github.com/hkchengrex/MiVOS) for providing their wonderful code to the community!
+We sincerely thank [STM](https://github.com/seoungwugoh/STM), [STCN](https://github.com/hkchengrex/STCN), [MiVOS](https://github.com/hkchengrex/MiVOS), [AbdomenCT-1K](https://github.com/JunMa11/AbdomenCT-1K) for providing their wonderful code to the community!
 
 
 ## Citation
