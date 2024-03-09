@@ -1,10 +1,10 @@
-# [iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images](https://arxiv.org/abs/2112.11325)
-**University of North Carolina at Chapel Hill**
-
-[Qin Liu](https://sites.google.com/cs.unc.edu/qinliu/home), [Zhenlin Xu](https://wildphoton.github.io/), [Yining Jiao](https://jiaoyining.github.io/), [Marc Niethammer](https://biag.cs.unc.edu/)
-
-MICCAI 2022
-
+# iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images
+PyTorch implementation for paper [iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images](https://arxiv.org/abs/2112.11325) (MICCAI 2022) <br>
+Qin Liu,
+Zhenlin Xu,
+Yining Jiao,
+Marc Niethammer <br>
+UNC-Chapel Hill
 
 <p align="center">
     <a href="https://arxiv.org/abs/2112.11325">
