@@ -11,7 +11,7 @@ Ziyan Wu<sup>2</sup>
 <br>
 <sup>1</sup>UNC-Chapel Hill, <sup>2</sup>United Imaging Intelligence</sup>
 
-#### [Paper](https://arxiv.org/abs/2303.06493) | [Video](https://drive.google.com/drive/folders/1bPLn7ZsZB3xRKNhxOB0ewWX3rlxp2pK_?usp=sharing)
+#### [Paper](https://arxiv.org/abs/2303.06493) | [Demo Videos](https://drive.google.com/drive/folders/1bPLn7ZsZB3xRKNhxOB0ewWX3rlxp2pK_?usp=sharing)
 
 <p align="center">
   <img src="./assets/framework.png" alt="drawing", width="650"/>
