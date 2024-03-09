@@ -14,7 +14,7 @@ Ziyan Wu<sup>2</sup>
 #### [Paper](https://arxiv.org/abs/2303.06493) | [Demo Videos](https://drive.google.com/drive/folders/1bPLn7ZsZB3xRKNhxOB0ewWX3rlxp2pK_?usp=sharing)
 
 <p align="center">
-  <img src="./assets/framework.png" alt="drawing", width="850"/>
+  <img src="./assets/framework.png" alt="drawing", width="820"/>
 </p>
 
 ## Installation
@@ -37,5 +37,8 @@ Then run a demo:
 ```
 ./run_demo.sh
 ```
-Below is an example
+You will get a GUI as below below: 
+<p align="center">
+  <img src="./assets/ivos_gui.png" alt="drawing", width="820"/>
+</p>
 
