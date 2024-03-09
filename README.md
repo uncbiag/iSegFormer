@@ -35,7 +35,7 @@ pip3 install -r requirements.txt
 ```
 
 ## Getting Started
-First, download model weights and a medical volume for demo purposes.
+First, download model weights and a medical volume for demo purposes. All downloaded data will be saved in a folder named ``saves``.
 ```
 python download.py
 ```
@@ -49,10 +49,25 @@ You will get a GUI as below:
 </p>
 
 ## Training
-TBD
+To finetune an STCN model on AbdomenCT-1K with cycle consistency loss:
+```
+./maskprop/Med-STCN/run_train_s4_cc.sh
+```
+To finetune an STCN model on AbdomenCT-1K without cycle consistency loss:
+```
+./maskprop/Med-STCN/run_train_s4.sh
+```
 
 ## Evaluation
-TBD
+To evaluate a trained model on AbdomenCT-1K:
+```
+./maskprop/Med-STCN/eval_med_stcn.sh
+```
+To obtain the segmentation metrics:
+```
+python maskprop/Med-STCN/abdomen1K-evaluation/evaluation_method.py
+```
+
 
 ## Citation
 ```bibtex
