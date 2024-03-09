@@ -74,6 +74,10 @@ To obtain the segmentation metrics:
 python maskprop/Med-STCN/abdomen1K-evaluation/evaluation_method.py
 ```
 
+## Acknowledgement
+
+We sincerely thank [STM](https://github.com/seoungwugoh/STM), [STCN](https://github.com/hkchengrex/STCN), [MiVOS](https://github.com/hkchengrex/MiVOS) for providing their wonderful code to the community!
+
 
 ## Citation
 ```bibtex
