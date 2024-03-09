@@ -22,6 +22,19 @@ UNC-Chapel Hill
   <img src="./assets/img/iSegFormer.png" alt="drawing", width="650"/>
 </p>
 
+## Update
+`🔥[2024-Mar-8]:` We update the code of the following work on interactive volume segmentation in branch [v2.0](https://github.com/uncbiag/iSegFormer/tree/v2.0). 
+> [Exploring Cycle Consistency Learning in Interactive Volume Segmentation](https://arxiv.org/abs/2303.06493). <br>
+> Qin Liu<sup>1</sup>,
+> Meng Zheng<sup>2</sup>,
+> Benjamin Planche<sup>2</sup>,
+> Zhongpai Gao<sup>2</sup>,
+> Terrence Chen<sup>2</sup>,
+> Marc Niethammer<sup>1</sup>, 
+> Ziyan Wu<sup>2</sup> <br>
+> <sup>1</sup>UNC-Chapel Hill, <sup>2</sup>United Imaging Intelligence</sup> <br>
+
+
 ## Installation
 If you want to test our models remotely, run this [colab notebook](https://colab.research.google.com/github/qinliuliuqin/iSegFormer/blob/main/notebooks/colab_test_isegformer.ipynb
 ). Otherwise, you have to download our codebase and install it locally.
