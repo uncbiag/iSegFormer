@@ -11,10 +11,10 @@ Ziyan Wu<sup>2</sup>
 <br>
 <sup>1</sup>UNC-Chapel Hill, <sup>2</sup>United Imaging Intelligence</sup>
 
-#### [Paper](https://arxiv.org/abs/2303.06493) | [Video](https://drive.google.com/drive/folders/1bPLn7ZsZB3xRKNhxOB0ewWX3rlxp2pK_?usp=sharing)
+#### [Paper](https://arxiv.org/abs/2303.06493) | [Demo Videos](https://drive.google.com/drive/folders/1bPLn7ZsZB3xRKNhxOB0ewWX3rlxp2pK_?usp=sharing)
 
 <p align="center">
-  <img src="./assets/framework.png" alt="drawing", width="650"/>
+  <img src="./assets/framework.png" alt="drawing", width="820"/>
 </p>
 
 ## Installation
@@ -29,4 +29,16 @@ pip3 install -r requirements.txt
 ```
 
 ## Getting Started
-First download a [model checkpoint](https://drive.google.com/drive/folders/1V2NNIIPEE6NjkYx5wiCdgCGzP_ctgnUF?usp=sharing).
+First, download model weights and a medical volume for demo purposes.
+```
+python download.py
+```
+Then run a demo:
+```
+./run_demo.sh
+```
+You will get a GUI as below below: 
+<p align="center">
+  <img src="./assets/ivos_gui.png" alt="drawing", width="820"/>
+</p>
+
