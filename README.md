@@ -1,21 +1,27 @@
 # Exploring Cycle Consistency Learning in Interactive Volume Segmentation
-PyTorch implementation for paper [Exploring Cycle Consistency Learning in Interactive Volume Segmentation](https://arxiv.org/abs/2303.06493).
-
+PyTorch implementation for paper 
+[Exploring Cycle Consistency Learning in Interactive Volume Segmentation](https://arxiv.org/abs/2303.06493). <br>
 Qin Liu<sup>1</sup>,
 Meng Zheng<sup>2</sup>,
 Benjamin Planche<sup>2</sup>,
 Zhongpai Gao<sup>2</sup>,
 Terrence Chen<sup>2</sup>,
 Marc Niethammer<sup>1</sup>, 
-Ziyan Wu<sup>2</sup>
-<br>
-<sup>1</sup>UNC-Chapel Hill, <sup>2</sup>United Imaging Intelligence</sup>
-
+Ziyan Wu<sup>2</sup> <br>
+<sup>1</sup>UNC-Chapel Hill, <sup>2</sup>United Imaging Intelligence</sup> <br>
 #### [Paper](https://arxiv.org/abs/2303.06493) | [Demo Videos](https://drive.google.com/drive/folders/1bPLn7ZsZB3xRKNhxOB0ewWX3rlxp2pK_?usp=sharing)
 
 <p align="center">
   <img src="./assets/framework.png" alt="drawing", width="780"/>
 </p>
+
+This repository (branch [v1.0](https://github.com/uncbiag/iSegFormer/tree/v2.0)) also contains the following work: 
+> [iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images](https://arxiv.org/abs/2112.11325). (MICCAI 2022) <br>
+> Qin Liu,
+> Zhenlin Xu,
+> Yining Jiao,
+> Marc Niethammer <br>
+> UNC-Chapel Hill <br>
 
 ## Installation
 The code is tested with ``python=3.9``, ``torch=1.12.0``, and ``torchvision=0.13.0`` on an A6000 GPU.
