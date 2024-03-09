@@ -36,7 +36,8 @@ def evaluate(gt_folder, seg_folder, dataset_file, label):
             gt_frame_label[gt_frame == label] = 1
             if np.count_nonzero(gt_frame_label) > 10:
                 seg_frame_label = np.zeros_like(seg_frame)
-                seg_frame_label[seg_frame == label] = 1
+                # seg_frame_label[seg_frame == label] = 1
+                seg_frame_label[seg_frame > 0] = 1
                 iou_label = db_eval_iou(gt_frame_label, seg_frame_label)
                 iou_single_video_label.append(iou_label)
 
@@ -89,23 +90,27 @@ def evaluate(gt_folder, seg_folder, dataset_file, label):
 
 if __name__ == '__main__':
 
-    # data_root_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval'
-    data_root_folder = '/playpen-raid2/qinliu/data/MSD/Task02_Heart_frames/trainval'
+    data_root_folder = '/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval'
+    # data_root_folder = '/playpen-raid2/qinliu/data/MSD/Task02_Heart_frames/trainval'
 
     gt_folder = f'{data_root_folder}/Annotations/480p'
     dataset_file = f'{data_root_folder}/ImageSets/val.txt'
 
     # seg_root_folder = '/playpen-raid2/qinliu/projects/iSegFormer/maskprop/Med-STCN/results'
-    seg_root_folder = '/playpen-raid2/qinliu/projects/iSegFormer/maskprop/Med-STCN/results/MSD'
-    for label in range(1, 2):
-        seg_folder = f'{seg_root_folder}/stcn/label_{label}'
-        evaluate(gt_folder, seg_folder, dataset_file, label)
+    # seg_root_folder = '/playpen-raid2/qinliu/projects/iSegFormer/maskprop/Med-STCN/results/MSD'
+    # for label in range(1, 2):
+    #     seg_folder = f'{seg_root_folder}/stcn/label_{label}'
+    #     evaluate(gt_folder, seg_folder, dataset_file, label)
 
-    for label in range(1, 2):
-        seg_folder = f'{seg_root_folder}/stcn_med_abdomen1k_Aug01_15.34.08_ft_s012_10k_no_cc/label_{label}'
-        evaluate(gt_folder, seg_folder, dataset_file, label)
+    # for label in range(1, 2):
+    #     seg_folder = f'{seg_root_folder}/stcn_med_abdomen1k_Aug01_15.34.08_ft_s012_10k_no_cc/label_{label}'
+    #     evaluate(gt_folder, seg_folder, dataset_file, label)
 
-    for label in range(1, 2):
-        seg_folder = f'{seg_root_folder}/stcn_med_abdomen1k_Aug01_22.03.33_ft_s012_10k_cc/label_{label}'
-        evaluate(gt_folder, seg_folder, dataset_file, label)
+    # for label in range(1, 2):
+    #     seg_folder = f'{seg_root_folder}/stcn_med_abdomen1k_Aug01_22.03.33_ft_s012_10k_cc/label_{label}'
+    #     evaluate(gt_folder, seg_folder, dataset_file, label)
 
+    label=12
+    seg_root_folder = '/playpen-raid2/qinliu/projects/STM/test/ABD_STMval'
+    seg_folder = f'{seg_root_folder}/label_{label}'
+    evaluate(gt_folder, seg_folder, dataset_file, label)
