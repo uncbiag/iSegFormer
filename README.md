@@ -41,11 +41,11 @@ pip3 install -r requirements.txt
 ```
 
 ## Getting Started
-First, download model weights and a medical volume for demo purposes. All downloaded data will be saved in a folder named ``saves``.
+First, download AbdomenCT-1K and model weights. AbdomenCT-1K will be saved in the ``data`` folder; model weight will be saved in the ``saves`` folder. AbdomenCT-1K can also be downloaded from the official [webset](https://github.com/JunMa11/AbdomenCT-1K). 
 ```
 python download.py
 ```
-Then run a demo:
+Unzip the AbdomenCT-1K in the ``data`` folder accordingly. Then run a demo:
 ```
 ./run_demo.sh
 ```

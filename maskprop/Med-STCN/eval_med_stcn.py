@@ -1,28 +1,25 @@
+from argparse import ArgumentParser
+import numpy as np
 import os
 from os import path
+from PIL import Image
 import time
-from argparse import ArgumentParser
-
 import torch
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
-import numpy as np
-from PIL import Image
+from tqdm import tqdm
 
 from model.eval_network import STCN
 from dataset.med_test_dataset import MedTestDataset
 from util.tensor_util import unpad
 from inference_core import InferenceCore
 
-from progressbar import progressbar
-
-
 """
 Arguments loading
 """
 parser = ArgumentParser()
-parser.add_argument('--model', default='saves/stcn.pth')
-parser.add_argument('--med_path', default='/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames')
+parser.add_argument('--model')
+parser.add_argument('--med_path')
 parser.add_argument('--output')
 parser.add_argument('--split', help='val', default='val')
 parser.add_argument('--top', type=int, default=20)
@@ -36,7 +33,7 @@ out_path = args.output
 
 # Simple setup
 os.makedirs(out_path, exist_ok=True)
-palette = Image.open(path.expanduser(f'/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_frames/trainval/Annotations/480p/Organ12_0001/0000000.png')).getpalette()
+palette = Image.open(path.expanduser(f'{args.med_path}/trainval/Annotations/480p/Organ12_0001/0000000.png')).getpalette()
 
 torch.autograd.set_grad_enabled(False)
 
@@ -67,8 +64,8 @@ def evaluate_single_label(label):
     total_frames = 0
 
     # start evaluation. Only 1 round propagation.
-    for data in progressbar(test_loader, max_value=len(test_loader), redirect_stdout=True):
-
+    # for data in progressbar(test_loader, max_value=len(test_loader), redirect_stdout=True):
+    for data in tqdm(test_loader):
         with torch.cuda.amp.autocast(enabled=args.amp):
             # example shape
             # rgb: [1, T, 3, 480, 480]; msk: [N, T, 1, 480, 480]

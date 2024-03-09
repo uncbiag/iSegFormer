@@ -1,6 +1,7 @@
 import os
 import gdown
 
+# download models
 save_folder ='saves'
 os.makedirs(save_folder, exist_ok=True)
 
@@ -36,3 +37,12 @@ gdown.download(weight_stcn_cycle_url, output, quiet=False)
 weight_fusion_stcn_url = 'https://drive.google.com/uc?id=1hf3yHizbgcOQx6LLFCX_rvHR30p4ioVp'
 output = f'{save_folder}/fusion_stcn.pth'
 gdown.download(weight_fusion_stcn_url, output, quiet=False)
+
+# download data
+data_folder ='data'
+os.makedirs(data_folder, exist_ok=True)
+
+# AbdomenCT-1k
+data_url = 'https://drive.google.com/uc?id=1RBvKJ5eGRG5BUK4F3NUpLopuP-_cLjKC'
+output = f'{data_folder}/AbdomenCT-1K.zip'
+gdown.download(data_url, output, quiet=False)
