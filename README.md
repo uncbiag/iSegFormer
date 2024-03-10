@@ -1,6 +1,7 @@
 # Exploring Cycle Consistency Learning in Interactive Volume Segmentation
 PyTorch implementation for paper 
-[Exploring Cycle Consistency Learning in Interactive Volume Segmentation](https://arxiv.org/abs/2303.06493). <br>
+[Exploring Cycle Consistency Learning in Interactive Volume Segmentation](https://arxiv.org/abs/2303.06493). 
+
 Qin Liu<sup>1</sup>,
 Meng Zheng<sup>2</sup>,
 Benjamin Planche<sup>2</sup>,
