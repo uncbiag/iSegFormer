@@ -1,5 +1,6 @@
 # iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images
-PyTorch implementation for paper [iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images](https://arxiv.org/abs/2112.11325) (MICCAI 2022) <br>
+PyTorch implementation for paper [iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images](https://arxiv.org/abs/2112.11325), MICCAI 2022.
+
 Qin Liu,
 Zhenlin Xu,
 Yining Jiao,
