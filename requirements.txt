@@ -1,1 +1,10 @@
-progressbar
+gdown==5.1.0
+opencv-python-headless==4.9.0.80
+PyQt5==5.15.9
+scipy==1.9.1
+Cython==0.29.33
+matplotlib==3.7.1
+SimpleITK==2.2.1
+git+https://github.com/cheind/py-thin-plate-spline
+GitPython==3.1.42
+tensorboard==2.16.2
