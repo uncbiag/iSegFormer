@@ -29,10 +29,6 @@ The code is tested with ``python=3.9``, ``torch=1.12.0``, and ``torchvision=0.13
 git clone https://github.com/uncbiag/iSegFormer
 cd iSegFormer
 ```
-Note that our implementation for this work is on the branch v2.0. It's not the default branch when you clone this repository locally, so you always need to checkout v2.0 manually.
-```
-git checkout v2.0
-```
 Now, create a new conda environment and install required packages accordingly.
 ```
 conda create -n isegformer python=3.9
