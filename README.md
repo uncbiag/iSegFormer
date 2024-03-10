@@ -67,7 +67,7 @@ To finetune an STCN model on AbdomenCT-1K without cycle consistency loss:
 ## Evaluation
 To evaluate a trained model on AbdomenCT-1K:
 ```
-./eval_stcn.sh
+./run_eval_stcn.sh
 ```
 
 ## Acknowledgement
