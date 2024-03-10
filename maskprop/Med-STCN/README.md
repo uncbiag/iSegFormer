@@ -1,1 +1,0 @@
-# Med-STCN

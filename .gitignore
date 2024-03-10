@@ -1,6 +1,8 @@
 *ivs-demo
+
 # Models
-weights/
+*weights
+*data
 *saves
 *results
 *.pth
@@ -9,7 +11,8 @@ weights/
 # Data
 *videos
 *volumes
-workspace/
+*workspace
+*nii.gz
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

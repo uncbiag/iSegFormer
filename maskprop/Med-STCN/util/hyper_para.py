@@ -13,12 +13,11 @@ class HyperParameters():
         parser.add_argument('--no_amp', action='store_true')
 
         # Data parameters
-        parser.add_argument('--static_root', help='Static training data root', default='../static')
-        parser.add_argument('--bl_root', help='Blender training data root', default='../BL30K')
+        parser.add_argument('--static_root', help='Static training data root', default='/work/data/static')
+        parser.add_argument('--bl_root', help='Blender training data root', default='/work/data/BL30K')
         parser.add_argument('--yv_root', help='YouTubeVOS data root', default='/work/data/YouTube')
         parser.add_argument('--davis_root', help='DAVIS data root', default='/work/data/DAVIS')
-        parser.add_argument('--abd1k_root', help='Abdomen1k data root', 
-                            default='/playpen-raid2/qinliu/data/AbdomenCT-1K/Organ-12-Subset_finetune')
+        parser.add_argument('--abd1k_root', help='Abdomen1k data root', default='/work/data/adb1k')
 
         parser.add_argument('--stage', help='Training stage (0-static images, 1-Blender dataset, 2-DAVIS+YouTubeVOS (300K), 3-DAVIS+YouTubeVOS (150K))', type=int, default=0)
         parser.add_argument('--num_workers', help='Number of datalaoder workers per process', type=int, default=8)
@@ -44,11 +43,9 @@ class HyperParameters():
 
         # parameters for new contributions
         parser.add_argument('--use_cycle_loss', help='Whether to use cycle propagation loss', action='store_true')
-        parser.add_argument('--use_fusion_loss', help='Whether to use fusion loss', action='store_true')
         parser.add_argument('--use_const_skip_values', help='Use constant skip values', action='store_true')
         parser.add_argument('--save_model_interval', type=int, default=10000)
         parser.add_argument('--cycle_loss_weight', type=float, default=0.1)
-        parser.add_argument('--fusion_loss_weight', type=float, default=0.1)
 
         if unknown_arg_ok:
             args, _ = parser.parse_known_args()

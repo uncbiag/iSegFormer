@@ -1,4 +1,4 @@
-# iSegFormer: Interactive Video/Volume Segmentation using Vision Transformers
+# Interactive Medical Volume Segmentation
 
 ## Updates
 [03/11/2023] Add code for cycle consistency learning in branch [cycle-learning](https://github.com/uncbiag/iSegFormer/tree/cycle-learning).
@@ -24,5 +24,18 @@ The code is released under the MIT License. It is a short, permissive software l
   pages={464--474},
   year={2022},
   organization={Springer}
+
+## Acknowledgement
+
+We sincerely thank [STM](https://github.com/seoungwugoh/STM), [STCN](https://github.com/hkchengrex/STCN), [MiVOS](https://github.com/hkchengrex/MiVOS), [AbdomenCT-1K](https://github.com/JunMa11/AbdomenCT-1K) for providing their wonderful code to the community!
+
+
+## Citation
+```bibtex
+@article{liu2023exploring,
+  title={Exploring Cycle Consistency Learning in Interactive Volume Segmentation},
+  author={Liu, Qin and Zheng, Meng and Planche, Benjamin and Gao, Zhongpai and Chen, Terrence and Niethammer, Marc and Wu, Ziyan},
+  journal={arXiv preprint arXiv:2303.06493},
+  year={2023}
 }
 ```
