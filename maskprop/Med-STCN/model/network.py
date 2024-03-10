@@ -153,9 +153,6 @@ class STCN(nn.Module):
         self.memory = MemoryReader()
         self.decoder = Decoder()
 
-        # fusion module
-        self.fusion_net = FusionNet()
-
     def aggregate(self, prob):
         new_prob = torch.cat([
             torch.prod(1-prob, dim=1, keepdim=True),
@@ -213,28 +210,6 @@ class STCN(nn.Module):
 
         return logits, prob
 
-    def fuse(self, query_img, query_key, query_seg_r1, query_seg_r2, ref_key, ref_gt, ref_seg, distance):
-        # get difference masks for the reference image
-        pos_mask = (ref_gt - ref_seg).clamp(0, 1)
-        neg_mask = (ref_seg - ref_gt).clamp(0, 1)
-
-        b, _, h, w = pos_mask.shape
-        nh = h//16
-        nw = w//16
-
-        # example shape
-        # ref_key: [4, 3, 384, 384]; query_key: [4, 64, 24, 24]
-        W = self.memory.get_affinity_v2(ref_key, query_key)
-
-        pos_map = (F.interpolate(pos_mask, size=(nh,nw), mode='area').view(b, 1, nh*nw) @ W)
-        neg_map = (F.interpolate(neg_mask, size=(nh,nw), mode='area').view(b, 1, nh*nw) @ W)
-        attn_map = torch.cat([pos_map, neg_map], 1)
-        attn_map = attn_map.reshape(b, 2, nh, nw)
-
-        attn_map = F.interpolate(attn_map, mode='bilinear', size=(h,w), align_corners=False)
-        prob = torch.sigmoid(self.fusion_net(query_img, query_seg_r1, query_seg_r2, attn_map, distance))
-        return prob
-
     def forward(self, mode, *args, **kwargs):
         if mode == 'encode_key':
             return self.encode_key(*args, **kwargs)
@@ -242,7 +217,5 @@ class STCN(nn.Module):
             return self.encode_value(*args, **kwargs)
         elif mode == 'segment':
             return self.segment(*args, **kwargs)
-        elif mode == 'fuse':
-            return self.fuse(*args, **kwargs)
         else:
             raise NotImplementedError
