@@ -41,7 +41,7 @@ pip3 install -r requirements.txt
 ```
 
 ## Getting Started
-First, download AbdomenCT-1K dataset and model weights. AbdomenCT-1K will be saved in the ``data`` folder; model weight will be saved in the ``saves`` folder.
+First, download AbdomenCT-1K dataset and model weights. AbdomenCT-1K will be saved in the ``data`` folder; model weights will be saved in the ``saves`` folder.
 ```
 python download.py
 ```
