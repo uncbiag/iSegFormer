@@ -16,7 +16,7 @@ Ziyan Wu<sup>2</sup> <br>
   <img src="./assets/framework.png" alt="drawing", width="780"/>
 </p>
 
-This repository also contains the following work (branch [v1.0](https://github.com/uncbiag/iSegFormer/tree/v2.0)): 
+This repository also contains our previous work in branch [v1.0](https://github.com/uncbiag/iSegFormer/tree/v1.0). 
 > [iSegFormer: Interactive Image Segmentation via Transformers with Application to 3D Knee MR Images](https://arxiv.org/abs/2112.11325). (MICCAI 2022) <br>
 > Qin Liu,
 > Zhenlin Xu,
