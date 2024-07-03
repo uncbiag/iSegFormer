@@ -11,7 +11,7 @@ UNC-Chapel Hill
     <a href="https://arxiv.org/abs/2112.11325">
         <img src="https://img.shields.io/badge/arXiv-2102.06583-b31b1b"/>
     </a>
-    <a href="https://colab.research.google.com/github/qinliuliuqin/iSegFormer/blob/main/notebooks/colab_test_isegformer.ipynb">
+    <a href="https://github.com/uncbiag/iSegFormer/blob/v1.0/notebooks/colab_test_isegformer.ipynb">
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
     </a>
     <a href="https://opensource.org/licenses/MIT">
