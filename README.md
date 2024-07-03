@@ -37,7 +37,7 @@ UNC-Chapel Hill
 
 
 ## Installation
-If you want to test our models remotely, run this [colab notebook](https://colab.research.google.com/github/qinliuliuqin/iSegFormer/blob/main/notebooks/colab_test_isegformer.ipynb
+If you want to test our models remotely, run this [colab notebook](https://github.com/uncbiag/iSegFormer/blob/v1.0/notebooks/colab_test_isegformer.ipynb
 ). Otherwise, you have to download our codebase and install it locally.
 
 This framework is built using Python 3.9 and relies on the PyTorch 1.4.0+. The following command installs all 
